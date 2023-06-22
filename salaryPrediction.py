@@ -28,7 +28,12 @@ def find_salary(company_name,job_title,location,employment_status,job_roles):
 # salaryv,r = find_salary('Sasken','Android Developer','Bangalore','Full Time','Android')
 # print(salaryv)
 
-st.title("**Welcome To** SalaryJano :sunglasses:")
+st.markdown('''
+            <meta charset = "UTF-8">
+            <h3 ><i>Welcome To </i>
+            <font size="7" color="red" face="Optima">SalaryJano &#129297	
+            </font></h3>
+            ''',unsafe_allow_html=True)
 # if "button_clicked" not in st.session_state:
 #     st.session_state.button_clicked = False
 #
