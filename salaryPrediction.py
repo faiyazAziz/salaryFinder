@@ -91,7 +91,7 @@ if(add_radio == "Predict Salary"):
         else:
             st.text("")
             st.text("")
-            st.write("Rs. " +salary)
+            st.write("Rs. " + str(salary))
 
 
 if(add_radio == "Ratio of Job"):
