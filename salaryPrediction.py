@@ -3,8 +3,6 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import streamlit as st
-from numerize.numerize import numerize
-
 
 df = pd.read_csv("salaryData.csv", skipinitialspace=True)
 all_companies = df['Company Name'].unique()
@@ -93,7 +91,7 @@ if(add_radio == "Predict Salary"):
         else:
             st.text("")
             st.text("")
-            st.write(u'\u20B9'+ " " +numerize(salary))
+            st.write(u'\u20B9'+ " " +salary)
 
 
 if(add_radio == "Ratio of Job"):
