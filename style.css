@@ -1,0 +1,33 @@
+div.appview-container.css-1wrcr25.e1g8pov66{
+    background-color:#FDCEDF;
+}
+header.css-18ni7ap.e13qjvis2{
+    background-color :rgba(0,0,0,0);
+}
+section.css-vk3wp9.e1akgbir11{
+    background-color: #F8E8EE;
+}
+
+button.css-1n543e5.e1ewe7hr10{
+    border: 2px solid #F71568;
+        background:transparent;
+        color: #F71568;
+        position: absolute;
+        bottom: -25px;
+        left: 0;
+        padding:5px 50px 5px 50px;
+        animation: fadeWish 1s cubic-bezier(.74, .06, .4, .92) forwards;
+        animation-delay: 1s;
+        margin : -20px 0px;
+        &:hover {
+          background: #F71568;
+          color: #FFF;
+          box-shadow: 0 0 26px #F71568;
+        }
+}
+
+div.css-5rimss.eqr7zpz4 > p{
+    font-size : 40px;
+    margin : 20px 0px;
+    text-align : center;
+}
