@@ -116,6 +116,8 @@ if(add_radio=='Compare Company'):
         y = compare_company(options)
         fig,ax = plt.subplots()
         ax.bar(options,y)
+        plt.xlabel("Companies")
+        plt.ylabel("Relative Jobs In Companies")
         st.pyplot(fig,use_container_width=True)
 
 
