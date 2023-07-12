@@ -2,6 +2,7 @@ import math
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import plotly.express as px
 import streamlit as st
 
 df = pd.read_csv("salaryData.csv", skipinitialspace=True)
@@ -19,7 +20,6 @@ def find_salary(company_name,job_title,location,employment_status,job_roles):
     aa = aa[aa['Location'] == location]
     aa = aa[aa['Employment Status'] == employment_status]
     aa = aa[aa['Job Title'] == job_title]
-
     salary = aa['Salary'].mean()
     rating = aa['Rating'].mean()
 
@@ -61,7 +61,7 @@ def compare_company(options):
 st.markdown('''
             <meta charset = "UTF-8">
             <h3 style = "vertical-align:text-top"><i>Welcome To </i>
-            <font size="7" color="red" face="Optima">SalaryJano &#129297	
+            <font size="100" color="red" face="Optima">SalaryJano &#129297	
             </font></h3>
             ''',unsafe_allow_html=True)
 
@@ -86,12 +86,12 @@ if(add_radio == "Predict Salary"):
         if(math.isnan(salary)):
             left_co, cent_co, last_co = st.columns(3)
             with cent_co:
-                st.text("NO DATA FOUND")
                 st.image('NoData.png')
+                st.text("NO DATA FOUND")
         else:
             st.text("")
             st.text("")
-            st.write("Rs. " + str(salary))
+            st.write("Rs. " +str(salary))
 
 
 if(add_radio == "Ratio of Job"):
@@ -105,6 +105,22 @@ if(add_radio == "Ratio of Job"):
     ax.pie(y,labels=labels,shadow=True,explode=explode)
     st.pyplot(fig,use_container_width=True)
 
+def compare_companies(options):
+    lst_max = []
+    lst_mean = []
+    lst_min = []
+    # print(options)
+    for company in options:
+        aa = df[df["Company Name"]==company]
+        # print(aa)
+        lst_min.append(aa['Salary'].min())
+        lst_max.append(aa['Salary'].max())
+        lst_mean.append(aa['Salary'].mean())
+    print(lst_min)
+    print(lst_max)
+    return lst_min,lst_mean,lst_max
+
+
 if(add_radio=='Compare Company'):
     options = st.multiselect("Select Company To Compare",all_companies,max_selections=4)
     compare = st.button("COMPARE")
@@ -113,12 +129,34 @@ if(add_radio=='Compare Company'):
         st.text("")
         st.text("")
         st.text("")
+        mi,me,ma = compare_companies(options)
+        mi = np.array(mi)
+        ma = np.array(ma)
         y = compare_company(options)
         fig,ax = plt.subplots()
-        ax.bar(options,y)
+        for i in range (len(options)):
+            if len(options[i])>15:
+                options[i] = options[i][:20]
+        X_axis = np.arange(len(options))
+        ax.bar(X_axis+0.2,mi,0.2,label="Min")
+        ax.bar(X_axis+0.2*2,me,0.2,label="Mean")
+        ax.bar(X_axis + 0.2*3, ma, 0.2, label="Max")
+        plt.xticks(X_axis,options)
+        plt.legend()
+        plt.xlabel("Companies")
+        plt.ylabel("Salaries in 10 Lakhs")
+        st.pyplot(fig, use_container_width=True)
+        fig1, ax1 = plt.subplots()
+        ax1.bar(options,y)
         plt.xlabel("Companies")
         plt.ylabel("Relative Jobs In Companies")
-        st.pyplot(fig,use_container_width=True)
+        st.pyplot(fig1, use_container_width=True)
 
 
-
+if(add_radio == "Analyze Company"):
+    company = st.selectbox("Choose Company",all_companies)
+    aa = df[df["Company Name"]==company]
+    analyze = st.button("Click Here")
+    if(analyze):
+        fig = px.histogram(aa,x="Job Roles",title="jobs vs count")
+        st.plotly_chart(fig,use_container_width=True)
